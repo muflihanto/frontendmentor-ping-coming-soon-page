@@ -119,10 +119,10 @@ const addSlider = (imagePath) => {
   })();
 };
 
-addSlider("/design/desktop-hover-error-states.jpg");
+// addSlider("/design/desktop-hover-error-states.jpg");
 // addSlider("/design/desktop-design.jpg");
 // addSlider("/design/active-states.jpg");
-// addSlider("/design/mobile-design.jpg");
+addSlider("/design/mobile-design.jpg");
 // addSlider("/design/mobile-error-state.jpg");
 
 /* ------------------------------------------ */

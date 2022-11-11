@@ -39,10 +39,6 @@
       defer
       src="https://unpkg.com/alpinejs@3.10.5/dist/cdn.min.js"
     ></script>
-    <!-- <script
-      defer
-      src="./slider.js"
-    ></script> -->
   </head>
   <body>
     <header>
@@ -58,10 +54,11 @@
         x-data="{
           value: '',
           invalid: false,
-          empty: true
+          empty: true,
+          show: false
         }"
         method="post"
-        @submit.prevent="if(value==='') {invalid=true; empty=true} else if(!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(value)) {invalid=true; empty=false} else {invalid=false; empty=true; value=''; $refs.emailInput.value = ''}"
+        @submit.prevent="if(value==='') {invalid=true; empty=true} else if(!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(value)) {invalid=true; empty=false} else {invalid=false; empty=true; $refs.emailInput.value = '';show=true}"
       >
         <label
           for="email"
@@ -79,19 +76,37 @@
           />
         </label>
         <button>Notify Me</button>
-        <!-- <template
-          x-show="show"
-          x-teleport="body"
-        >
+        <template x-teleport="body">
           <dialog
+            x-show="show"
             id="successDialog"
-            @click.outside="show = ! show"
+            @click.outside="show=false; value=''"
+            x-transition:enter.duration.500ms
+            x-transition:enter.delay.250ms
             open
           >
-            <button>x</button>
-            <h1>Thank You!</h1>
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+              >
+                <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z" />
+              </svg>
+            </div>
+            <h1>Thank You<span>For Subscribing</span></h1>
+            <p>
+              Hi
+              <span
+                x-text="value"
+                class="greet"
+              ></span>
+              <br />
+              We are incredibly excited to have you here. <br />
+              You've been added to our list and you will hear from us soon.
+            </p>
+            <button @click="show=false; value=''">Close</button>
           </dialog>
-        </template> -->
+        </template>
       </form>
       <img
         src="./images/illustration-dashboard.png"
@@ -130,8 +145,6 @@
         </a>
       </div>
       <p class="copyright">&copy; Copyright Ping. All rights reserved.</p>
-    </footer>
-    <footer>
       <p class="attribution">
         Challenge by
         <a
